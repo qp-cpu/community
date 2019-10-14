@@ -18,7 +18,7 @@ public class GithubProvider {
         RequestBody body = RequestBody.create(mediaType,JSON.toJSONString(accesstokenDTO));
         Request request = new Request.Builder()
                 .url("https://github.com/login/oauth/access_token")
-                .post((okhttp3.RequestBody) body)
+                .post(body)
                 .build();
         try (Response response = client.newCall(request).execute()) {
             String string = response.body().string();
@@ -47,6 +47,4 @@ public class GithubProvider {
         }
         return null;
     }
-
-
 }
