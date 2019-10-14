@@ -4,12 +4,22 @@ import life.majiang.community.dto.AccesstokenDTO;
 import life.majiang.community.dto.GithubUser;
 import life.majiang.community.provider.GithubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AuthorizeController {
+
+    @Value("${github.client.id}")
+    private String client_Id;
+
+    @Value("${github.client.secrect}")
+    private String client_secrect;
+
+    @Value("${github.redirect.url}")
+    private String redirect_url;
 
     @Autowired
    private GithubProvider githubProvider;
@@ -21,9 +31,9 @@ public class AuthorizeController {
         AccesstokenDTO accesstokenDTO = new AccesstokenDTO();
         accesstokenDTO.setCode(code);
         accesstokenDTO.setState(state);
-        accesstokenDTO.setRedirect_uri("http://localhost:8887/callback");
-        accesstokenDTO.setClient_id("079686b431e42084be6c");
-        accesstokenDTO.setClient_secret("c7afb2650726839d8f8156a9fa18493827152e70");
+        accesstokenDTO.setRedirect_uri(redirect_url);
+        accesstokenDTO.setClient_id(client_Id);
+        accesstokenDTO.setClient_secret(client_secrect);
         String accessToken = githubProvider.getAccessToken(accesstokenDTO);
         System.out.println(accessToken);
         GithubUser user = githubProvider.getuser(accessToken);
