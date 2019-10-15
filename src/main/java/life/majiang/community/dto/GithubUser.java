@@ -28,4 +28,13 @@ public class GithubUser {
     public void setDio(String dio) {
         this.dio = dio;
     }
+
+    @Override
+    public String toString() {
+        return "GithubUser{" +
+                "name='" + name + '\'' +
+                ", id=" + id +
+                ", dio='" + dio + '\'' +
+                '}';
+    }
 }
