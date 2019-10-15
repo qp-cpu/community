@@ -3,7 +3,7 @@ package life.majiang.community.dto;
 public class GithubUser {
     private  String name;
     private  Long id;
-    private String dio;
+    private String bio;
 
     public String getName() {
         return name;
@@ -21,20 +21,20 @@ public class GithubUser {
         this.id = id;
     }
 
-    public String getDio() {
-        return dio;
+    public String getBio() {
+        return bio;
     }
 
-    public void setDio(String dio) {
-        this.dio = dio;
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
-    @Override
-    public String toString() {
-        return "GithubUser{" +
-                "name='" + name + '\'' +
-                ", id=" + id +
-                ", dio='" + dio + '\'' +
-                '}';
+    public GithubUser(String name, Long id, String bio) {
+        this.name = name;
+        this.id = id;
+        this.bio = bio;
+    }
+
+    public GithubUser() {
     }
 }

@@ -9,6 +9,7 @@ public class UserEntity implements Serializable {
     private String token;
     private Long gmt_create;
     private Long gmt_modified;
+    private String bio;
 
     public Integer getId() {
         return id;
@@ -58,6 +59,28 @@ public class UserEntity implements Serializable {
         this.gmt_modified = gmt_modified;
     }
 
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public UserEntity(Integer id, String account_id, String name, String token, Long gmt_create, Long gmt_modified, String bio) {
+        this.id = id;
+        this.account_id = account_id;
+        this.name = name;
+        this.token = token;
+        this.gmt_create = gmt_create;
+        this.gmt_modified = gmt_modified;
+        this.bio = bio;
+    }
+
+    public UserEntity() {
+
+    }
+
     @Override
     public String toString() {
         return "UserEntity{" +
@@ -67,18 +90,7 @@ public class UserEntity implements Serializable {
                 ", token='" + token + '\'' +
                 ", gmt_create=" + gmt_create +
                 ", gmt_modified=" + gmt_modified +
+                ", bio='" + bio + '\'' +
                 '}';
-    }
-
-    public UserEntity() {
-    }
-
-    public UserEntity(Integer id, String account_id, String name, String token, Long gmt_create, Long gmt_modified) {
-        this.id = id;
-        this.account_id = account_id;
-        this.name = name;
-        this.token = token;
-        this.gmt_create = gmt_create;
-        this.gmt_modified = gmt_modified;
     }
 }

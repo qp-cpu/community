@@ -62,6 +62,7 @@ public class AuthorizeController {
            userEntity.setAccount_id(String.valueOf(user.getId()));
            userEntity.setGmt_create(System.currentTimeMillis());
            userEntity.setGmt_modified(userEntity.getGmt_create());
+           userEntity.setBio(user.getBio());
            Integer add = userService.add(userEntity);
            response.addCookie(new Cookie("token",token));
 
