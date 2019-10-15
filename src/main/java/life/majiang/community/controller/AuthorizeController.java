@@ -8,11 +8,12 @@ import life.majiang.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 @Controller
@@ -38,7 +39,8 @@ public class AuthorizeController {
     @GetMapping("/callback")
     public String callback(@RequestParam(name="code") String code,
                            @RequestParam("state") String state,
-                           HttpServletRequest request){
+                           HttpServletRequest request,
+                           HttpServletResponse response){
 
         AccesstokenDTO accesstokenDTO = new AccesstokenDTO();
         accesstokenDTO.setCode(code);
@@ -51,15 +53,18 @@ public class AuthorizeController {
         GithubUser user = githubProvider.getuser(accessToken);
         if(user!=null)
        {
+
+           //登录成功
            UserEntity userEntity = new UserEntity();
-           userEntity.setToken(UUID.randomUUID().toString());
+           String token = UUID.randomUUID().toString();
+           userEntity.setToken(token);
            userEntity.setName(user.getName());
            userEntity.setAccount_id(String.valueOf(user.getId()));
            userEntity.setGmt_create(System.currentTimeMillis());
            userEntity.setGmt_modified(userEntity.getGmt_create());
-           //登录成功
            Integer add = userService.add(userEntity);
-           request.getSession().setAttribute("user",user);
+           response.addCookie(new Cookie("token",token));
+
            return "redirect:/";
        }
        else

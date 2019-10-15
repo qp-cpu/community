@@ -5,6 +5,8 @@ import life.majiang.community.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.Cookie;
+
 @Service
 public class UserService {
 
@@ -18,5 +20,9 @@ public class UserService {
     public Integer add(UserEntity userEntity)
     {
         return userDao.add(userEntity);
+    }
+
+    public UserEntity selectBytoken(String token){
+        return userDao.selectBytoken(token);
     }
 }

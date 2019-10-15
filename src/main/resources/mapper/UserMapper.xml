@@ -10,5 +10,9 @@
         insert into user(id,account_id,name,token,gmt_create,gmt_modified) values (#{id},#{account_id},#{name},#{token},#{gmt_create},#{gmt_modified})
     </insert>
 
+    <select id="selectBytoken" parameterType="String" resultType="life.majiang.community.entity.UserEntity">
+        select * from user where token=#{token}
+    </select>
+
 
 </mapper>
