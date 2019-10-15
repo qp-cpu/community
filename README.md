@@ -10,6 +10,7 @@
 [github QAuth](https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/)
 [Mysql菜鸟教程](https://www.runoob.com/mysql/mysql-tutorial.html)
 [spring boot的官方文档](https://docs.spring.io/spring-boot/docs/2.1.9.RELEASE/reference/html/boot-features-sql.html#boot-features-configure-datasource)
+[mybatis](http://www.mybatis.cn/)
 ##工具
 [git](https://git-scm.com/)
 [Visual Paradigm](https://www.visual-paradigm.com/cn/)
