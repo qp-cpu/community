@@ -10,8 +10,8 @@
         insert into question(id,title,descrition,gmt_create,gmt_modified,creator,tag) values (#{id},#{title},#{descrition},#{gmt_create},#{gmt_modified},#{creator},#{tag})
     </insert>
 
-    <select id="selectBytoken" parameterType="String" resultType="life.majiang.community.entity.PublishEntity">
-        select * from question where descrition=#{descrition}
+    <select id="selectAll" resultType="life.majiang.community.entity.PublishEntity">
+        select * from question
     </select>
 
 

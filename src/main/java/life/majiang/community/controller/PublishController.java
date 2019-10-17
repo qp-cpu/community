@@ -58,16 +58,23 @@ public class PublishController {
             return "publish";
         }
 
+
         Cookie[] cookies=request.getCookies();
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("token")) {
-                String token = cookie.getValue();
-                userEntity = userService.selectBytoken(token);
-                if (userEntity != null) {
-                 request.getSession().setAttribute("user",userEntity);
+        if(cookies!=null && cookies.length!=0) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    String token = cookie.getValue();
+                    userEntity = userService.selectBytoken(token);
+                    if (userEntity != null) {
+                        request.getSession().setAttribute("user", userEntity);
+                    }
+                    break;
                 }
-                break;
             }
+        }
+        else
+        {
+            return "index";
         }
         if(userEntity == null)
         {
