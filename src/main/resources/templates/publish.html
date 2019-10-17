@@ -47,22 +47,29 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 发起</h2>
             <hr>
-
-            <form>
+            <form action="/publish" method="post">
                 <div class="form-group">
                     <label for="title">问题标题（简单扼要）：</label>
-                    <input type="text" class="form-control"  name="title" id="title" placeholder="问题标题">
+                    <input type="text" class="form-control" th:value="${title}" name="title" id="title" placeholder="问题标题">
                 </div>
                 <div class="form-group">
-                    <label for="title">问题补充（必填，请参照右侧提示）：</label>
-                    <textarea name="description" id="description" rows="10" cols="30" class="form-control"></textarea>
+                    <label for="description">问题补充（必填，请参照右侧提示）：</label>
+                    <textarea name="description" th:value="${description}" id="description" rows="10" cols="30" class="form-control" placeholder="问题描述"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="title">添加标签：</label>
-                    <input type="text" class="form-control"  name="tag" id="tag" placeholder="输入标签，以 ，号分隔">
-
+                    <label for="tag">添加标签：</label>
+                    <input type="text" class="form-control" th:value="${tag}" name="tag" id="tag" placeholder="输入标签，以 ，号分隔">
                 </div>
-                <button type="submit" class="btn btn-success btn-publish">发布</button>
+                <div class="container-fluid main">
+                    <div class="row">
+                        <div class="alert alert-danger col-lg-9 col-md-12 col-sm-12 col-xs-12" th:if="${error!=null}" th:text="${error}"></div>
+                        <div class="btn-publish col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                            <button type="submit" class="btn btn-success btn-publish ">
+                                发布
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
         <br class="col-lg-3 col-md-12 col-sm-12 col-xs-12">

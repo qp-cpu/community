@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="life.majiang.community.dao.PublishDao">
+
+    <select id="getuser" parameterType="int" resultType="life.majiang.community.entity.PublishEntity">
+        select * from question where id = #{id}
+    </select>
+
+    <insert id="insertpublish" parameterType="life.majiang.community.entity.PublishEntity">
+        insert into question(id,title,descrition,gmt_create,gmt_modified,creator,tag) values (#{id},#{title},#{descrition},#{gmt_create},#{gmt_modified},#{creator},#{tag})
+    </insert>
+
+    <select id="selectBytoken" parameterType="String" resultType="life.majiang.community.entity.PublishEntity">
+        select * from question where descrition=#{descrition}
+    </select>
+
+
+</mapper>
