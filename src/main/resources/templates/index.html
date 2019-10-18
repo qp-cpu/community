@@ -49,16 +49,16 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 发现</h2>
             <hr>
-            <div class="media">
+            <div class="media" th:each="publish : ${publishs}">
                 <div class="media-left">
                     <a href="#">
-                        <img class="media-object img-rounded" src="https://avatars0.githubusercontent.com/u/54786550?v=4">
+                        <img class="media-object img-rounded" th:src="${publish.getUserEntity().getAvatar_url()}">
                     </a>
                 </div>
                 <div class="media-body">
-                    <h3 class="media-heading">怎么快速学会springboot开发</h3>
-                    点击进入 进行springboot的学习<br>
-                    <span class="text-desc">2 个回复  * 31次浏览 * 1小时前</span>
+                    <h3 class="media-heading" th:text="${publish.getTitle()}"></h3>
+                    <span th:text="${publish.getDescrition()}"></span><br>
+                    <span class="text-desc"><span th:text="${publish.getComment_count()}"></span> 个回复     * <span th:text="${publish.getView_count()}"></span> 次浏览    * <span th:text="${#dates.format(publish.getGmt_create(),'dd MMMM yyyy')}"></span> </span>
                 </div>
             </div>
         </div>

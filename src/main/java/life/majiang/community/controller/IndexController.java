@@ -38,9 +38,9 @@ public class IndexController {
                     break;
                 }
             }
-            List<PublishDto> publishEntityList =publishService.selectAll();
+             List<PublishDto> publishEntityList =publishService.selectAll();
 
-                model.addAttribute("publish",publishEntityList);
+                model.addAttribute("publishs",publishEntityList);
 
         }
         else {

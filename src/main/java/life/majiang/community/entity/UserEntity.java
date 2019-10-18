@@ -18,6 +18,4 @@ public class UserEntity implements Serializable {
     private Long gmt_modified;
     private String bio;
     private String avatar_url;
-
-
 }
