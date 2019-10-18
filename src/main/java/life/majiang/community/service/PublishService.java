@@ -2,6 +2,7 @@ package life.majiang.community.service;
 
 import life.majiang.community.dao.PublishDao;
 import life.majiang.community.dao.UserDao;
+import life.majiang.community.dto.PageDto;
 import life.majiang.community.dto.PublishDto;
 import life.majiang.community.entity.PublishEntity;
 import life.majiang.community.entity.UserEntity;
@@ -23,9 +24,11 @@ public class PublishService {
         return publishDao.insertpublish(publishEntity);
     }
 
-    public List<PublishDto> selectAll(){
-        List<PublishEntity> publishEntityList=publishDao.selectAll();
+    public PageDto selectAll(Integer page, Integer size){
+        Integer ofsize= size * (page-1);
+        List<PublishEntity> publishEntityList=publishDao.selectAll(ofsize,size);
         List<PublishDto> publishDtos=new ArrayList<>();
+        PageDto pageDto = new PageDto();
         for (PublishEntity publishEntity:publishEntityList)
         {
             UserEntity userEntity = userDao.getuser(publishEntity.getCreator());
@@ -36,7 +39,11 @@ public class PublishService {
                 publishDtos.add(publishDto);
             }
         }
+        pageDto.setPublishDtos(publishDtos);
+        Integer totalcount=publishDao.count();
+        pageDto.setPagenation(totalcount,page,size);
 
-        return publishDtos;
+        return pageDto;
     }
+
 }

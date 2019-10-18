@@ -10,9 +10,12 @@
         insert into question(id,title,descrition,gmt_create,gmt_modified,creator,tag) values (#{id},#{title},#{descrition},#{gmt_create},#{gmt_modified},#{creator},#{tag})
     </insert>
 
-    <select id="selectAll" resultType="life.majiang.community.entity.PublishEntity">
-        select * from question
+    <select id="selectAll" parameterType="int" resultType="life.majiang.community.entity.PublishEntity">
+        select * from question limit #{ofszie}, #{size};
     </select>
 
+    <select id="count" parameterType="int" resultType="int">
+        select count(1) from question;
+    </select>
 
 </mapper>

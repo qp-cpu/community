@@ -68,6 +68,12 @@
             <artifactId>lombok</artifactId>
             <version>1.18.8</version>
         </dependency>
+<!--        自动部署-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
 
     </dependencies>
 
