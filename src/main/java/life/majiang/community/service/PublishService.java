@@ -25,10 +25,25 @@ public class PublishService {
     }
 
     public PageDto selectAll(Integer page, Integer size){
+
+        PageDto pageDto = new PageDto();
+        Integer totalcount=publishDao.count();
+        pageDto.setPagenation(totalcount,page,size);
+
+        //对违规值进行处理
+        if(page<1)
+        {
+            page=1;
+        }
+        if(page>pageDto.getTotalpage())
+        {
+            page=pageDto.getTotalpage();
+        }
+
         Integer ofsize= size * (page-1);
         List<PublishEntity> publishEntityList=publishDao.selectAll(ofsize,size);
         List<PublishDto> publishDtos=new ArrayList<>();
-        PageDto pageDto = new PageDto();
+
         for (PublishEntity publishEntity:publishEntityList)
         {
             UserEntity userEntity = userDao.getuser(publishEntity.getCreator());
@@ -40,8 +55,7 @@ public class PublishService {
             }
         }
         pageDto.setPublishDtos(publishDtos);
-        Integer totalcount=publishDao.count();
-        pageDto.setPagenation(totalcount,page,size);
+
 
         return pageDto;
     }

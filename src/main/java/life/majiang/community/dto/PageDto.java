@@ -14,9 +14,12 @@ public class PageDto {
     private boolean showEndpage;
     private Integer page;
     private List<Integer> pages=new ArrayList<>();
+    private Integer totalpage;
 
     public void setPagenation(Integer totalcount, Integer page, Integer size) {
-         Integer totalpage=0;
+
+
+
         if(totalcount % size ==0)
         {
             totalpage=totalcount /size;
@@ -24,15 +27,21 @@ public class PageDto {
         else {
             totalpage=totalcount/size +1 ;
         }
+        //对违规值进行处理
+        if(page>totalpage)
+        {
+            page=totalpage;
+        }
 
+        this.page=page;
         pages.add(page);
-        for(int i=0;i<3;i++)
+        for(int i=1;i<=3;i++)
         {
             if(page-i>0)
             {
-                pages.add(page-i,0);
+                pages.add(0,page-i);
             }
-            if(page+i<=totalcount)
+            if(page+i<=totalpage)
             {
                 pages.add(page+i);
             }
