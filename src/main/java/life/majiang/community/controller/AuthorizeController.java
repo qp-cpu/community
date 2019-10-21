@@ -66,7 +66,9 @@ public class AuthorizeController {
            userEntity.setAvatar_url(githubUser.getAvatar_url());
            //把获取的信息注入数据库
            Integer add = userService.add(userEntity);
+
            response.addCookie(new Cookie("token",token));
+
 
            return "redirect:/";
        }
