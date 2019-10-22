@@ -14,8 +14,15 @@
         select * from question limit #{ofszie}, #{size};
     </select>
 
+    <select id="list" parameterType="int" resultType="life.majiang.community.entity.PublishEntity">
+        select * from question where creator=#{id} limit #{ofszie}, #{size};
+    </select>
+
     <select id="count" parameterType="int" resultType="int">
         select count(1) from question;
+    </select>
+    <select id="count1" parameterType="int" resultType="int">
+        select count(1)  from question where creator=#{creator};
     </select>
 
 </mapper>

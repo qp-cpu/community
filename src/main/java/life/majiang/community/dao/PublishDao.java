@@ -12,4 +12,6 @@ public interface PublishDao {
 
      public List<PublishEntity> selectAll(@Param("ofszie") Integer ofszie, @Param("size") Integer size);
      public  Integer count();
+    public  Integer count1(@Param("creator") Integer creator);
+    List<PublishEntity> list(@Param("id") Integer id,@Param("ofszie") Integer ofszie, @Param("size") Integer size);
 }

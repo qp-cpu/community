@@ -60,4 +60,38 @@ public class PublishService {
         return pageDto;
     }
 
+    public PageDto list(Integer id, Integer page, Integer size) {
+        PageDto pageDto = new PageDto();
+        Integer totalcount=publishDao.count1(id);
+        pageDto.setPagenation(totalcount,page,size);
+
+        //对违规值进行处理
+        if(page<1)
+        {
+            page=1;
+        }
+        if(page>pageDto.getTotalpage())
+        {
+            page=pageDto.getTotalpage();
+        }
+
+        Integer ofsize= size * (page-1);
+        List<PublishEntity> publishEntityList=publishDao.list(id,ofsize,size);
+        List<PublishDto> publishDtos=new ArrayList<>();
+
+        for (PublishEntity publishEntity:publishEntityList)
+        {
+            UserEntity userEntity = userDao.getuser(publishEntity.getCreator());
+            if(userEntity!=null) {
+                PublishDto publishDto = new PublishDto();
+                BeanUtils.copyProperties(publishEntity, publishDto);
+                publishDto.setUserEntity(userEntity);
+                publishDtos.add(publishDto);
+            }
+        }
+        pageDto.setPublishDtos(publishDtos);
+
+        return  pageDto;
+    }
+
 }
