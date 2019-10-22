@@ -56,7 +56,6 @@ public class PublishService {
         }
         pageDto.setPublishDtos(publishDtos);
 
-
         return pageDto;
     }
 

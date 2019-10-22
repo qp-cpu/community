@@ -3,7 +3,6 @@ package life.majiang.community.controller;
 import life.majiang.community.entity.PublishEntity;
 import life.majiang.community.entity.UserEntity;
 import life.majiang.community.service.PublishService;
-import life.majiang.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 
@@ -21,8 +19,7 @@ public class PublishController {
 
     @Autowired
   private PublishService publishService;
-    @Autowired
-  private UserService userService;
+
 
     @GetMapping("/publish")
     public String publish(){
@@ -40,7 +37,6 @@ public class PublishController {
         model.addAttribute("description",description);
         model.addAttribute("tag",tag);
 
-        UserEntity userEntity = null;
 
         if(description == null || description == "")
         {
@@ -58,24 +54,7 @@ public class PublishController {
             return "publish";
         }
 
-
-        Cookie[] cookies=request.getCookies();
-        if(cookies!=null && cookies.length!=0) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    String token = cookie.getValue();
-                    userEntity = userService.selectBytoken(token);
-                    if (userEntity != null) {
-                        request.getSession().setAttribute("user", userEntity);
-                    }
-                    break;
-                }
-            }
-        }
-        else
-        {
-            return "index";
-        }
+        UserEntity userEntity=(UserEntity) request.getSession().getAttribute("user");
         if(userEntity == null)
         {
             model.addAttribute("error","用户未登录");

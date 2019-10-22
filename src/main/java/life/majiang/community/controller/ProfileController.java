@@ -1,6 +1,5 @@
 package life.majiang.community.controller;
 
-import life.majiang.community.dao.UserDao;
 import life.majiang.community.dto.PageDto;
 import life.majiang.community.entity.UserEntity;
 import life.majiang.community.service.PublishService;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
@@ -28,20 +26,7 @@ public class ProfileController {
                           HttpServletRequest request,
                           @RequestParam(name = "page",defaultValue = "1") Integer page,
                           @RequestParam(name = "size",defaultValue = "5") Integer size) {
-        UserEntity userEntity=null;
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null && cookies.length != 0) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    String token = cookie.getValue();
-                    userEntity = userService.selectBytoken(token);
-                    if (userEntity != null) {
-                        request.getSession().setAttribute("user", userEntity);
-                    }
-                    break;
-                }
-            }
-        }
+        UserEntity userEntity=(UserEntity) request.getSession().getAttribute("user");
         if(userEntity==null)
         {
             return "redirect:/";
