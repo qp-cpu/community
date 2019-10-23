@@ -93,4 +93,11 @@ public class PublishService {
         return  pageDto;
     }
 
+    public PublishDto getBYid(Integer id) {
+        PublishEntity publishentity = publishDao.getBYid(id);
+        PublishDto publishDto=new PublishDto();
+        BeanUtils.copyProperties(publishentity,publishDto);
+
+        return publishDto;
+    }
 }

@@ -19,6 +19,7 @@ public class SessionInterceptor implements HandlerInterceptor {
     @Autowired
     private UserService userService;
 
+    //在请求controller以前调用
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
@@ -34,15 +35,14 @@ public class SessionInterceptor implements HandlerInterceptor {
                     break;
                 }
             }
-
         return true;
     }
-
+    //在调用controller方法之后使用
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 
     }
-
+    //在渲染视图完成以后使用
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 

@@ -25,4 +25,8 @@
         select count(1)  from question where creator=#{creator};
     </select>
 
+    <select id="getBYid" parameterType="int" resultType="life.majiang.community.entity.PublishEntity">
+        select * from question where id=#{id};
+    </select>
+
 </mapper>
