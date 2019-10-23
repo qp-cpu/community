@@ -60,13 +60,10 @@ public class AuthorizeController {
            userEntity.setToken(token);
            userEntity.setName(githubUser.getName());
            userEntity.setAccount_id(String.valueOf(githubUser.getId()));
-           userEntity.setGmt_create(System.currentTimeMillis());
-           userEntity.setGmt_modified(userEntity.getGmt_create());
            userEntity.setBio(githubUser.getBio());
            userEntity.setAvatar_url(githubUser.getAvatar_url());
            //把获取的信息注入数据库
-           Integer add = userService.add(userEntity);
-
+           userService.createOrUpdate(userEntity);
            response.addCookie(new Cookie("token",token));
 
 

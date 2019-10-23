@@ -15,4 +15,11 @@
     </select>
 
 
+    <select id="findByAccountId" parameterType="String" resultType="life.majiang.community.entity.UserEntity">
+        select * from user where account_id=#{account_id}
+    </select>
+
+    <update id="updatetoken" parameterType="life.majiang.community.entity.UserEntity" >
+        update user set name=#{name},token=#{token},gmt_modified=#{gmt_modified},avatar_url=#{avatar_url} where account_id=#{account_id}
+    </update>
 </mapper>

@@ -97,7 +97,8 @@ public class PublishService {
         PublishEntity publishentity = publishDao.getBYid(id);
         PublishDto publishDto=new PublishDto();
         BeanUtils.copyProperties(publishentity,publishDto);
-
+        UserEntity userEntity = userDao.getuser(publishentity.getCreator());
+        publishDto.setUserEntity(userEntity);
         return publishDto;
     }
 }

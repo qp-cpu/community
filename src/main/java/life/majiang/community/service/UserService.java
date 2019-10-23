@@ -24,4 +24,26 @@ public class UserService {
     public UserEntity selectBytoken(String token){
         return userDao.selectBytoken(token);
     }
+
+
+
+    public void createOrUpdate(UserEntity userEntity)
+    {
+        UserEntity dbuserEntity=userDao.findByAccountId(userEntity.getAccount_id());
+        if(dbuserEntity==null)
+        {
+            //插入
+            userEntity.setGmt_create(System.currentTimeMillis());
+            userEntity.setGmt_modified(userEntity.getGmt_create());
+            userDao.add(userEntity);
+        }
+        else {
+            //更新
+            dbuserEntity.setGmt_modified(System.currentTimeMillis());
+            dbuserEntity.setAvatar_url(userEntity.getAvatar_url());
+            dbuserEntity.setName(userEntity.getName());
+            dbuserEntity.setToken(userEntity.getToken());
+            userDao.updatetoken(dbuserEntity);
+        }
+    }
 }
