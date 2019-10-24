@@ -15,18 +15,13 @@ public class UserService {
     public UserEntity getuser(int id){
      return  userDao.getuser(id);
     }
-
     public Integer add(UserEntity userEntity)
     {
         return userDao.add(userEntity);
     }
-
     public UserEntity selectBytoken(String token){
         return userDao.selectBytoken(token);
     }
-
-
-
     public void createOrUpdate(UserEntity userEntity)
     {
         UserEntity dbuserEntity=userDao.findByAccountId(userEntity.getAccount_id());

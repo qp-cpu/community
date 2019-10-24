@@ -23,9 +23,7 @@ public class PublishService {
     public Integer insertpublish(PublishEntity publishEntity){
         return publishDao.insertpublish(publishEntity);
     }
-
     public PageDto selectAll(Integer page, Integer size){
-
         PageDto pageDto = new PageDto();
         Integer totalcount=publishDao.count();
         pageDto.setPagenation(totalcount,page,size);
