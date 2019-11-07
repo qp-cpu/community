@@ -20,9 +20,6 @@ public class PublishService {
     @Autowired
     UserDao userDao;
 
-    public Integer insertpublish(PublishEntity publishEntity){
-        return publishDao.insertpublish(publishEntity);
-    }
     public PageDto selectAll(Integer page, Integer size){
         PageDto pageDto = new PageDto();
         Integer totalcount=publishDao.count();
@@ -97,5 +94,20 @@ public class PublishService {
         UserEntity userEntity = userDao.getuser(publishentity.getCreator());
         publishDto.setUserEntity(userEntity);
         return publishDto;
+    }
+
+    public void inserOrUpdatetpublish(PublishEntity publishEntity) {
+        //创建问题
+        if (publishEntity.getId()==null)
+        {
+            publishDao.insertpublish(publishEntity);
+            publishEntity.setGmt_create(System.currentTimeMillis());
+            publishEntity.setGmt_modified(System.currentTimeMillis());
+        }
+        else {
+            //更新
+           publishEntity.setGmt_modified(System.currentTimeMillis());
+           publishDao.updateByid(publishEntity);
+        }
     }
 }

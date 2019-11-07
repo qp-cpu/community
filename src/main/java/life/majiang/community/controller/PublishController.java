@@ -1,13 +1,16 @@
 package life.majiang.community.controller;
 
+import life.majiang.community.dto.PublishDto;
 import life.majiang.community.entity.PublishEntity;
 import life.majiang.community.entity.UserEntity;
 import life.majiang.community.service.PublishService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,6 +23,17 @@ public class PublishController {
     @Autowired
   private PublishService publishService;
 
+    @GetMapping("/publish/{id}")
+    public String edit(@PathVariable("id") Integer id,
+                       Model model)
+    {
+        PublishDto publishDto = publishService.getBYid(id);
+        model.addAttribute("title",publishDto.getTitle());
+        model.addAttribute("description",publishDto.getDescrition());
+        model.addAttribute("tag",publishDto.getTag());
+        model.addAttribute("id",publishDto.getId());
+        return "publish";
+    }
 
     @GetMapping("/publish")
     public String publish(){
@@ -30,6 +44,7 @@ public class PublishController {
     public String doPublish(@RequestParam(value = "title",required = false) String title,
                             @RequestParam(value = "description",required = false) String description,
                             @RequestParam(value = "tag",required = false) String tag,
+                            @RequestParam(value="id",required = false) Integer id,
                             HttpServletRequest request,
                             Model model)
     {
@@ -66,9 +81,9 @@ public class PublishController {
         publishEntity.setDescrition(description);
         publishEntity.setTag(tag);
         publishEntity.setCreator(userEntity.getId());
-        publishEntity.setGmt_create(System.currentTimeMillis());
-        publishEntity.setGmt_modified(publishEntity.getGmt_create());
-        publishService.insertpublish(publishEntity);
+        publishEntity.setId(id);
+        publishService.inserOrUpdatetpublish(publishEntity);
+
         return "redirect:/";
     }
 }

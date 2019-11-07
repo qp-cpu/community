@@ -29,4 +29,8 @@
         select * from question where id=#{id};
     </select>
 
+    <update id="updateByid" parameterType="life.majiang.community.entity.PublishEntity">
+        update question set title=#{title},gmt_modified=#{gmt_modified},descrition=#{descrition},tag=#{tag} where id=#{id}
+    </update>
+
 </mapper>

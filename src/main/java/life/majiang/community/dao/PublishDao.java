@@ -15,4 +15,6 @@ public interface PublishDao {
      public  Integer count1(@Param("creator") Integer creator);
      List<PublishEntity> list(@Param("id") Integer id,@Param("ofszie") Integer ofszie, @Param("size") Integer size);
      public  PublishEntity getBYid(@Param("id") Integer id);
+
+     public  void updateByid(PublishEntity publishEntity);
 }
