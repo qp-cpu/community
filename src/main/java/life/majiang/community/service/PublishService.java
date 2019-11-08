@@ -1,7 +1,8 @@
 package life.majiang.community.service;
 
-import life.majiang.community.dao.PublishDao;
-import life.majiang.community.dao.UserDao;
+
+import life.majiang.community.dao.PublishEntityMapper;
+import life.majiang.community.dao.UserEntityMapper;
 import life.majiang.community.dto.PageDto;
 import life.majiang.community.dto.PublishDto;
 import life.majiang.community.entity.PublishEntity;
@@ -16,9 +17,9 @@ import java.util.List;
 @Service
 public class PublishService {
     @Autowired
-    PublishDao publishDao;
+    PublishEntityMapper publishDao;
     @Autowired
-    UserDao userDao;
+    UserEntityMapper userDao;
 
     public PageDto selectAll(Integer page, Integer size){
         PageDto pageDto = new PageDto();
@@ -101,12 +102,12 @@ public class PublishService {
         if (publishEntity.getId()==null)
         {
             publishDao.insertpublish(publishEntity);
-            publishEntity.setGmt_create(System.currentTimeMillis());
-            publishEntity.setGmt_modified(System.currentTimeMillis());
+            publishEntity.setGmtCreate(System.currentTimeMillis());
+            publishEntity.setGmtModified(System.currentTimeMillis());
         }
         else {
             //更新
-           publishEntity.setGmt_modified(System.currentTimeMillis());
+           publishEntity.setGmtModified(System.currentTimeMillis());
            publishDao.updateByid(publishEntity);
         }
     }

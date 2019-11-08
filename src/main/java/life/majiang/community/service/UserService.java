@@ -1,6 +1,7 @@
 package life.majiang.community.service;
 
-import life.majiang.community.dao.UserDao;
+
+import life.majiang.community.dao.UserEntityMapper;
 import life.majiang.community.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     @Autowired
-    private UserDao userDao;
+    private UserEntityMapper userDao;
 
     public UserEntity getuser(int id){
      return  userDao.getuser(id);
@@ -24,20 +25,21 @@ public class UserService {
     }
     public void createOrUpdate(UserEntity userEntity)
     {
-        UserEntity dbuserEntity=userDao.findByAccountId(userEntity.getAccount_id());
+        UserEntity dbuserEntity=userDao.findByAccountId(userEntity.getAccountId());
         if(dbuserEntity==null)
         {
             //插入
-            userEntity.setGmt_create(System.currentTimeMillis());
-            userEntity.setGmt_modified(userEntity.getGmt_create());
+            userEntity.setGmtCreate(System.currentTimeMillis());
+            userEntity.setGmtModified(userEntity.getGmtCreate());
             userDao.add(userEntity);
         }
         else {
             //更新
-            dbuserEntity.setGmt_modified(System.currentTimeMillis());
-            dbuserEntity.setAvatar_url(userEntity.getAvatar_url());
+            dbuserEntity.setGmtModified(System.currentTimeMillis());
+            dbuserEntity.setAvatarUrl(userEntity.getAvatarUrl());
             dbuserEntity.setName(userEntity.getName());
             dbuserEntity.setToken(userEntity.getToken());
+
             userDao.updatetoken(dbuserEntity);
         }
     }

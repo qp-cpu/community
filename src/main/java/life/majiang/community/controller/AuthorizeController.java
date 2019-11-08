@@ -49,23 +49,24 @@ public class AuthorizeController {
         accesstokenDTO.setClient_id(client_Id);
         accesstokenDTO.setClient_secret(client_secrect);
         String accessToken = githubProvider.getAccessToken(accesstokenDTO);
-        System.out.println(accessToken);
+      //  System.out.println(accessToken);
         GithubUser githubUser = githubProvider.getuser(accessToken);
         if(githubUser!=null)
        {
-
+           String accountId=String.valueOf(githubUser.getId());
            //登录成功
            UserEntity userEntity = new UserEntity();
            String token = UUID.randomUUID().toString();
            userEntity.setToken(token);
            userEntity.setName(githubUser.getName());
-           userEntity.setAccount_id(String.valueOf(githubUser.getId()));
+           userEntity.setAccountId(accountId);
+           userEntity.setAvatarUrl(String.valueOf(githubUser.getId()));
            userEntity.setBio(githubUser.getBio());
-           userEntity.setAvatar_url(githubUser.getAvatar_url());
+           userEntity.setAvatarUrl(githubUser.getAvatar_url());
            //把获取的信息注入数据库
            userService.createOrUpdate(userEntity);
+           System.out.println(token);
            response.addCookie(new Cookie("token",token));
-
 
            return "redirect:/";
        }
