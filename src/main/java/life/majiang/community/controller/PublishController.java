@@ -32,6 +32,7 @@ public class PublishController {
         model.addAttribute("description",publishDto.getDescrition());
         model.addAttribute("tag",publishDto.getTag());
         model.addAttribute("id",publishDto.getId());
+        model.addAttribute("update","修改");
         return "publish";
     }
 
