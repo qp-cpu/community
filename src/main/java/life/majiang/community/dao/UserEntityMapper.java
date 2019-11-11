@@ -17,7 +17,6 @@ public interface UserEntityMapper {
     int updateByPrimaryKeySelective(UserEntity record);
 
     int updateByPrimaryKey(UserEntity record);
-
     public UserEntity getuser(int id);
     public Integer add(UserEntity userEntity);
     public UserEntity selectBytoken(@Param("token") String token);

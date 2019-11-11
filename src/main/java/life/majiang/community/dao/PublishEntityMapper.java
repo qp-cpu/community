@@ -3,7 +3,6 @@ package life.majiang.community.dao;
 import life.majiang.community.entity.PublishEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
 
 @Mapper

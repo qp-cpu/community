@@ -7,6 +7,8 @@ import life.majiang.community.dto.PageDto;
 import life.majiang.community.dto.PublishDto;
 import life.majiang.community.entity.PublishEntity;
 import life.majiang.community.entity.UserEntity;
+import life.majiang.community.exception.CustmizeException;
+import life.majiang.community.exception.CustomizeErrorcode;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -90,6 +92,11 @@ public class PublishService {
 
     public PublishDto getBYid(Integer id) {
         PublishEntity publishentity = publishDao.getBYid(id);
+        if(publishentity==null)
+        {
+            throw new CustmizeException(CustomizeErrorcode.QUESTION_NOT);
+        }
+
         PublishDto publishDto=new PublishDto();
         BeanUtils.copyProperties(publishentity,publishDto);
         UserEntity userEntity = userDao.getuser(publishentity.getCreator());

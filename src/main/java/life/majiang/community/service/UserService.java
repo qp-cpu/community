@@ -37,6 +37,7 @@ public class UserService {
             //更新
             dbuserEntity.setGmtModified(System.currentTimeMillis());
             dbuserEntity.setAvatarUrl(userEntity.getAvatarUrl());
+            dbuserEntity.setName(userEntity.getName());
             dbuserEntity.setToken(userEntity.getToken());
             userDao.updatetoken(dbuserEntity);
         }
