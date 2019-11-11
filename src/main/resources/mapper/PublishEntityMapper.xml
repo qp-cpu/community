@@ -180,4 +180,8 @@
   <update id="updateByid" parameterType="life.majiang.community.entity.PublishEntity">
         update question set title=#{title},gmt_modified=#{gmtModified},descrition=#{descrition},tag=#{tag} where id=#{id}
     </update>
+
+  <update id="updateViewCountBYid" parameterType="integer">
+    update question set view_count=view_count+1 where id=#{id}
+  </update>
 </mapper>

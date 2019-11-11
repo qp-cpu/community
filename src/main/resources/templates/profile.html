@@ -26,7 +26,7 @@
                     <h3 class="media-heading">
                         <a th:href="@{'/question/'+ ${publish.getId()}}" th:text="${publish.getTitle()}"></a>
                     </h3>
-                    <span class="text-desc"><span th:text="${publish.getComment_count()}"></span> 个回复     * <span th:text="${publish.getView_count()}"></span> 次浏览    * <span th:text="${#dates.format(publish.getGmt_create(),'yyyy-MM-dd HH:mm')}"></span> </span>
+                    <span class="text-desc"><span th:text="${publish.getCommentCount()}"></span> 个回复     * <span th:text="${publish.getViewCount()}"></span> 次浏览    * <span th:text="${#dates.format(publish.getGmtCreate(),'yyyy-MM-dd HH:mm')}"></span> </span>
                 </div>
             </div>
             <nav aria-label="Page navigation">

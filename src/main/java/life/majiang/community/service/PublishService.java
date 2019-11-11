@@ -118,4 +118,9 @@ public class PublishService {
            publishDao.updateByid(publishEntity);
         }
     }
+
+    public void intView(Integer id) {
+        PublishEntity publishEntity = publishDao.selectByPrimaryKey(id);
+        publishDao.updateViewCountBYid(id);
+    }
 }

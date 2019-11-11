@@ -13,9 +13,10 @@ public class QuestionController {
     @Autowired
     private PublishService publishService;
     @GetMapping("/question/{creator}")
-    public  String question(@PathVariable("creator") Integer creator,
+    public  String question(@PathVariable("creator") Integer id,
                             Model model){
-        PublishDto publishdto = publishService.getBYid(creator);
+        PublishDto publishdto = publishService.getBYid(id);
+        publishService.intView(id);
         model.addAttribute("question",publishdto);
         return "question";
     }

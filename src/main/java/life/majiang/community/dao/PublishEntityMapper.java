@@ -28,4 +28,6 @@ public interface PublishEntityMapper {
     public  PublishEntity getBYid(@Param("id") Integer id);
 
     public  void updateByid(PublishEntity publishEntity);
+
+    void updateViewCountBYid(@Param("id") Integer id);
 }

@@ -6,14 +6,24 @@ import lombok.Data;
 @Data
 public class PublishDto {
     private Integer id;
+
     private String title;
+
     private String descrition;
-    private Long gmt_create;
-    private Long gmt_modified;
+
+    private Long gmtCreate;
+
+    private Long gmtModified;
+
     private Integer creator;
-    private Integer comment_count;
-    private Integer view_count;
-    private Integer like_count;
+
+    private Integer commentCount;
+
+    private Integer viewCount;
+
+    private Integer likeCount;
+
     private String tag;
+
     private UserEntity userEntity;
 }
