@@ -30,4 +30,5 @@ public interface PublishEntityMapper {
     public  void updateByid(PublishEntity publishEntity);
 
     void updateViewCountBYid(@Param("id") Integer id);
+    int incCommentCount(PublishEntity record);
 }

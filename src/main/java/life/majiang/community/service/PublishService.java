@@ -37,7 +37,6 @@ public class PublishService {
         {
             page=pageDto.getTotalpage();
         }
-
         Integer ofsize= size * (page-1);
         List<PublishEntity> publishEntityList=publishDao.selectAll(ofsize,size);
         List<PublishDto> publishDtos=new ArrayList<>();
@@ -96,7 +95,6 @@ public class PublishService {
         {
             throw new CustmizeException(CustomizeErrorcode.QUESTION_NOT);
         }
-
         PublishDto publishDto=new PublishDto();
         BeanUtils.copyProperties(publishentity,publishDto);
         UserEntity userEntity = userDao.getuser(publishentity.getCreator());
@@ -108,9 +106,12 @@ public class PublishService {
         //创建问题
         if (publishEntity.getId()==null)
         {
-            publishDao.insertpublish(publishEntity);
             publishEntity.setGmtCreate(System.currentTimeMillis());
             publishEntity.setGmtModified(System.currentTimeMillis());
+            publishEntity.setViewCount(0);
+            publishEntity.setLikeCount(0);
+            publishEntity.setCommentCount(0);
+            publishDao.insert(publishEntity);
         }
         else {
             //更新

@@ -184,4 +184,7 @@
   <update id="updateViewCountBYid" parameterType="integer">
     update question set view_count=view_count+1 where id=#{id}
   </update>
+  <update id="incCommentCount" parameterType="life.majiang.community.entity.PublishEntity">
+    update question set comment_count=comment_count + #{commentCount} where id=#{id}
+  </update>
 </mapper>

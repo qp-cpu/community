@@ -3,6 +3,7 @@ package life.majiang.community.controller;
 import life.majiang.community.dto.PublishDto;
 import life.majiang.community.entity.PublishEntity;
 import life.majiang.community.entity.UserEntity;
+import life.majiang.community.exception.CustomizeErrorcode;
 import life.majiang.community.service.PublishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -53,7 +54,6 @@ public class PublishController {
         model.addAttribute("description",description);
         model.addAttribute("tag",tag);
 
-
         if(description == null || description == "")
         {
             model.addAttribute("error","问题描述不能为空");
@@ -76,7 +76,6 @@ public class PublishController {
             model.addAttribute("error","用户未登录");
             return "publish";
         }
-
         PublishEntity publishEntity = new PublishEntity();
         publishEntity.setTitle(title);
         publishEntity.setDescrition(description);
@@ -84,7 +83,6 @@ public class PublishController {
         publishEntity.setCreator(userEntity.getId());
         publishEntity.setId(id);
         publishService.inserOrUpdatetpublish(publishEntity);
-
         return "redirect:/";
     }
 }
