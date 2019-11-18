@@ -2,6 +2,9 @@ package life.majiang.community.dao;
 
 import life.majiang.community.entity.CommentEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface CommentEntityMapper {
@@ -52,4 +55,6 @@ public interface CommentEntityMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(CommentEntity record);
+
+    List<CommentEntity> selectByParentid(@Param("id") Integer id);
 }

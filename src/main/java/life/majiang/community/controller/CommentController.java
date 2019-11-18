@@ -1,5 +1,6 @@
 package life.majiang.community.controller;
 
+import life.majiang.community.dto.ComentCreateDto;
 import life.majiang.community.dto.CommentDto;
 import life.majiang.community.dto.ResultDto;
 import life.majiang.community.entity.CommentEntity;
@@ -25,7 +26,7 @@ public class CommentController {
 
     @PostMapping("/comment")
     @ResponseBody
-    public Object post(@RequestBody CommentDto commentDto,
+    public Object post(@RequestBody ComentCreateDto commentDto,
                        HttpServletRequest request){
 
         UserEntity user = (UserEntity) request.getSession().getAttribute("user");
@@ -35,7 +36,7 @@ public class CommentController {
         }
         CommentEntity record = new CommentEntity();
         record.setParentId(commentDto.getParentId());
-        record.setContent(commentDto.getComtent());
+        record.setContent(commentDto.getContent());
         record.setType(commentDto.getType());
         record.setGmtCreate(System.currentTimeMillis());
         record.setGmtModified(System.currentTimeMillis());

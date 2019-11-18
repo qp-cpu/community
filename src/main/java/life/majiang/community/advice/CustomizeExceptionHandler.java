@@ -49,7 +49,5 @@ public class CustomizeExceptionHandler {
             }
             return new ModelAndView("error");
         }
-
     }
-
 }

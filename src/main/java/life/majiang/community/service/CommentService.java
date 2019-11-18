@@ -2,14 +2,25 @@ package life.majiang.community.service;
 
 import life.majiang.community.dao.CommentEntityMapper;
 import life.majiang.community.dao.PublishEntityMapper;
+import life.majiang.community.dto.ComentCreateDto;
+import life.majiang.community.dto.CommentDto;
 import life.majiang.community.entity.CommentEntity;
 import life.majiang.community.entity.PublishEntity;
+import life.majiang.community.entity.UserEntity;
 import life.majiang.community.enums.ContentTypeEnums;
 import life.majiang.community.exception.CustmizeException;
 import life.majiang.community.exception.CustomizeErrorcode;
+import org.omg.CORBA.INTERNAL;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class CommentService {
@@ -18,6 +29,9 @@ public class CommentService {
 
     @Autowired
     private PublishEntityMapper publishEntityMapper;
+
+    @Autowired
+    private UserService userService;
 
     @Transactional
     public void insert(CommentEntity record) {
@@ -50,5 +64,32 @@ public class CommentService {
            publishEntity.setCommentCount(1);
            publishEntityMapper.incCommentCount(publishEntity);
        }
+    }
+
+    public List<CommentDto> ListByQuestionId(Integer id) {
+        List<CommentEntity> commentEntities = commentEntityMapper.selectByParentid(id);
+        if (commentEntities.size()==0)
+        {
+            return new ArrayList<>();
+        }
+        Set<Integer> commtoreres = commentEntities.stream().map(commentEntity -> commentEntity.getCommentor()).collect(Collectors.toSet());
+       List<Integer> userids=new ArrayList<>();
+        userids.addAll(commtoreres);
+        ArrayList<UserEntity> userEntities=new ArrayList<>();
+       for(Integer userId:userids)
+       {
+           UserEntity userEntity = userService.selectBYid(userId);
+           userEntities.add(userEntity);
+       }
+     //获取评论人并转化为map
+       Map<Integer,UserEntity> userEntityMap=userEntities.stream().collect(Collectors.toMap(userentity->userentity.getId(),userEntity -> userEntity));
+     //转化comment为commentdto
+       List<CommentDto> commentDtos=commentEntities.stream().map(commentEntity -> {
+           CommentDto commentDto=new CommentDto();
+           BeanUtils.copyProperties(commentEntity,commentDto);
+           commentDto.setUserEntity(userEntityMap.get(commentEntity.getCommentor()));
+           return  commentDto;
+       }).collect(Collectors.toList());
+        return commentDtos;
     }
 }

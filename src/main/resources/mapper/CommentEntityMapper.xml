@@ -157,4 +157,7 @@
       content = #{content,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="selectByParentid" parameterType="java.lang.Integer" resultType="life.majiang.community.entity.CommentEntity">
+    select * from comment where parent_id=#{id} and type in (1,2);
+  </select>
 </mapper>

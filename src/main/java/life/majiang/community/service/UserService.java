@@ -42,4 +42,8 @@ public class UserService {
             userDao.updatetoken(dbuserEntity);
         }
     }
+
+    public UserEntity selectBYid(Integer id) {
+      return  userDao.selectByPrimaryKey(id);
+    }
 }
