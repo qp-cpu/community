@@ -6,7 +6,8 @@ public enum CustomizeErrorcode implements  ICustomizeErrorcodde{
     NO_LOGIN(300,"未登录，不能进行操作 "),
     SYSTEM_ERROR(500,"服务器错误！！！！！ "),
     TYPE_PARAM_ERROE(500,"评论类型错误或者不存在！！！"),
-    COMMENT_NOT_FIND(500,"评论不存在了！！！");
+    COMMENT_NOT_FIND(500,"评论不存在了！！！"),
+    COMMENT_IS_EMPTY(301,"评论不能为空！！！");
    ;
     private String message;
     private Integer code;

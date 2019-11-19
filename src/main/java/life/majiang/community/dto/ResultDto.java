@@ -5,9 +5,10 @@ import life.majiang.community.exception.CustomizeErrorcode;
 import lombok.Data;
 
 @Data
-public class ResultDto {
+public class ResultDto<T>{
     private Integer code;
     private String message;
+    private T data;
 
     public static  ResultDto errorOf(Integer code,String mesage)
     {
@@ -30,5 +31,14 @@ public class ResultDto {
 
     public static ResultDto errorof(CustmizeException ex) {
         return errorOf(ex.getCode(),ex.getMessage());
+    }
+
+    public static<T>  ResultDto okOf(Object t)
+    {
+        ResultDto resultDto=new ResultDto();
+        resultDto.setCode(200);
+        resultDto.setMessage("请求成功");
+        resultDto.setData(t);
+        return  resultDto;
     }
 }

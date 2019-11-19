@@ -19,11 +19,12 @@ public class QuestionController {
     private PublishService publishService;
     @Autowired
     private CommentService commentService;
+    private static Integer TYPE=1;
     @GetMapping("/question/{creator}")
     public  String question(@PathVariable("creator") Integer id,
                             Model model){
         PublishDto publishdto = publishService.getBYid(id);
-      List<CommentDto> comentDtoList = commentService.ListByQuestionId(id);
+        List<CommentDto> comentDtoList = commentService.ListByQuestionId(id,TYPE);
         //增加阅读数
         publishService.intView(id);
         model.addAttribute("question",publishdto);

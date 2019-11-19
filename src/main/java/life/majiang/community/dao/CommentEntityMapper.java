@@ -56,5 +56,5 @@ public interface CommentEntityMapper {
      */
     int updateByPrimaryKey(CommentEntity record);
 
-    List<CommentEntity> selectByParentid(@Param("id") Integer id);
+    List<CommentEntity> selectByParentid(@Param("id") Integer id,@Param("type") Integer type);
 }

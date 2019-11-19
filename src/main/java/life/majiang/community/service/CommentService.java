@@ -16,10 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,14 +63,14 @@ public class CommentService {
        }
     }
 
-    public List<CommentDto> ListByQuestionId(Integer id) {
-        List<CommentEntity> commentEntities = commentEntityMapper.selectByParentid(id);
+    public List<CommentDto> ListByQuestionId(Integer id,Integer type) {
+        List<CommentEntity> commentEntities = commentEntityMapper.selectByParentid(id,type);
         if (commentEntities.size()==0)
         {
             return new ArrayList<>();
         }
         Set<Integer> commtoreres = commentEntities.stream().map(commentEntity -> commentEntity.getCommentor()).collect(Collectors.toSet());
-       List<Integer> userids=new ArrayList<>();
+        List<Integer> userids=new ArrayList<>();
         userids.addAll(commtoreres);
         ArrayList<UserEntity> userEntities=new ArrayList<>();
        for(Integer userId:userids)
@@ -90,6 +87,7 @@ public class CommentService {
            commentDto.setUserEntity(userEntityMap.get(commentEntity.getCommentor()));
            return  commentDto;
        }).collect(Collectors.toList());
+        commentDtos.sort(Comparator.comparing(CommentDto::getGmtCreate).reversed());
         return commentDtos;
     }
 }

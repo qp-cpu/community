@@ -8,18 +8,21 @@ import life.majiang.community.entity.UserEntity;
 import life.majiang.community.exception.CustmizeException;
 import life.majiang.community.exception.CustomizeErrorcode;
 import life.majiang.community.service.CommentService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
 public class CommentController {
+
+    private static Integer TYPE=2;
 
     @Autowired
     private CommentService commentService;
@@ -34,6 +37,10 @@ public class CommentController {
         {
             return new CustmizeException(CustomizeErrorcode.NO_LOGIN);
         }
+        if (commentDto ==null || StringUtils.isBlank(commentDto.getContent()))
+        {
+            return new CustmizeException(CustomizeErrorcode.COMMENT_IS_EMPTY);
+        }
         CommentEntity record = new CommentEntity();
         record.setParentId(commentDto.getParentId());
         record.setContent(commentDto.getContent());
@@ -44,5 +51,13 @@ public class CommentController {
         record.setCommentor(user.getId());
         commentService.insert(record);
         return ResultDto.okOf();
+    }
+
+    @GetMapping("/comment/{id}")
+    @ResponseBody
+    public  ResultDto<List<CommentDto>> comments(@PathVariable("id") Integer id,
+                               Model model){
+        List<CommentDto> commentDtos = commentService.ListByQuestionId(id,TYPE);
+        return ResultDto.okOf(commentDtos);
     }
 }
