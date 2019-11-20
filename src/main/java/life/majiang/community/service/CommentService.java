@@ -2,7 +2,6 @@ package life.majiang.community.service;
 
 import life.majiang.community.dao.CommentEntityMapper;
 import life.majiang.community.dao.PublishEntityMapper;
-import life.majiang.community.dto.ComentCreateDto;
 import life.majiang.community.dto.CommentDto;
 import life.majiang.community.entity.CommentEntity;
 import life.majiang.community.entity.PublishEntity;
@@ -10,7 +9,6 @@ import life.majiang.community.entity.UserEntity;
 import life.majiang.community.enums.ContentTypeEnums;
 import life.majiang.community.exception.CustmizeException;
 import life.majiang.community.exception.CustomizeErrorcode;
-import org.omg.CORBA.INTERNAL;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,6 +47,8 @@ public class CommentService {
                 throw new CustmizeException(CustomizeErrorcode.COMMENT_NOT_FIND);
             }
             commentEntityMapper.insert(record);
+//            增加评论数
+           commentEntityMapper.inccommentcount(record.getParentId().intValue());
        }
        else {
            //回复问题

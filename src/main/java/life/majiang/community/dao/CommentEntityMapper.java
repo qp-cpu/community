@@ -1,8 +1,10 @@
 package life.majiang.community.dao;
 
 import life.majiang.community.entity.CommentEntity;
+import life.majiang.community.entity.PublishEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.omg.CORBA.INTERNAL;
 
 import java.util.List;
 
@@ -56,5 +58,9 @@ public interface CommentEntityMapper {
      */
     int updateByPrimaryKey(CommentEntity record);
 
-    List<CommentEntity> selectByParentid(@Param("id") Integer id,@Param("type") Integer type);
+    List<CommentEntity> selectByParentid(@Param("id") Integer id, @Param("type") Integer type);
+
+    Integer commentcount(@Param("id") Integer id, @Param("type") Integer type);
+
+    int inccommentcount(Integer id);
 }

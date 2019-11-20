@@ -15,9 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class CommentController {
@@ -48,6 +46,7 @@ public class CommentController {
         record.setGmtCreate(System.currentTimeMillis());
         record.setGmtModified(System.currentTimeMillis());
         record.setLikeCount(0L);
+        record.setCommentCount(0);
         record.setCommentor(user.getId());
         commentService.insert(record);
         return ResultDto.okOf();
@@ -57,6 +56,7 @@ public class CommentController {
     @ResponseBody
     public  ResultDto<List<CommentDto>> comments(@PathVariable("id") Integer id,
                                Model model){
+
         List<CommentDto> commentDtos = commentService.ListByQuestionId(id,TYPE);
         return ResultDto.okOf(commentDtos);
     }
