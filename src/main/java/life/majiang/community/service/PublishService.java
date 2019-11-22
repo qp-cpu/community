@@ -9,12 +9,14 @@ import life.majiang.community.entity.PublishEntity;
 import life.majiang.community.entity.UserEntity;
 import life.majiang.community.exception.CustmizeException;
 import life.majiang.community.exception.CustomizeErrorcode;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PublishService {
@@ -123,5 +125,24 @@ public class PublishService {
     public void intView(Integer id) {
         PublishEntity publishEntity = publishDao.selectByPrimaryKey(id);
         publishDao.updateViewCountBYid(id);
+    }
+
+    public List<PublishDto> selectRelated(PublishDto publishdto) {
+        if(StringUtils.isBlank(publishdto.getTag()))
+        {
+                 return new ArrayList<>();
+        }
+
+            String tag = StringUtils.replace(publishdto.getTag(), ",", "|");
+            PublishEntity publishEntity=new PublishEntity();
+            publishEntity.setId(publishdto.getId());
+            publishEntity.setTag(tag);
+            List<PublishEntity> publishEntityList = publishDao.selectRelated(publishEntity);
+            List<PublishDto> publishdtos = publishEntityList.stream().map(q -> {
+            PublishDto publishDto1=new PublishDto();
+            BeanUtils.copyProperties(q,publishDto1);
+            return publishDto1;
+        }).collect(Collectors.toList());
+        return publishdtos;
     }
 }

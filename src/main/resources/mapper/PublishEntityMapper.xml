@@ -159,11 +159,11 @@
     </insert>
 
   <select id="selectAll" parameterType="int" resultType="life.majiang.community.entity.PublishEntity">
-        select * from question limit #{ofszie}, #{size};
+        select * from question order by gmt_create desc limit #{ofszie}, #{size};
     </select>
 
   <select id="list" parameterType="int" resultType="life.majiang.community.entity.PublishEntity">
-        select * from question where creator=#{id} limit #{ofszie}, #{size};
+        select * from question  where creator=#{id} order by gmt_create desc limit #{ofszie}, #{size};
     </select>
 
   <select id="count" parameterType="int" resultType="int">
@@ -187,4 +187,7 @@
   <update id="incCommentCount" parameterType="life.majiang.community.entity.PublishEntity">
     update question set comment_count=comment_count + #{commentCount} where id=#{id}
   </update>
+  <select id="selectRelated" parameterType="life.majiang.community.entity.PublishEntity" resultMap="BaseResultMap">
+    select * from question where id !=#{id} and tag regexp #{tag}
+  </select>
 </mapper>

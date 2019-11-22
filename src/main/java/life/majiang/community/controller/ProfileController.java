@@ -41,7 +41,6 @@ public class ProfileController {
             PageDto pageDtoList= publishService.list(userEntity.getId(),page,size);
             model.addAttribute("publishs",pageDtoList);
             return "profile";
-
         }
     }
 

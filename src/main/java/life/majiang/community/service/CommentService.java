@@ -7,6 +7,7 @@ import life.majiang.community.entity.CommentEntity;
 import life.majiang.community.entity.PublishEntity;
 import life.majiang.community.entity.UserEntity;
 import life.majiang.community.enums.ContentTypeEnums;
+import life.majiang.community.enums.NtificationEnums;
 import life.majiang.community.exception.CustmizeException;
 import life.majiang.community.exception.CustomizeErrorcode;
 import org.springframework.beans.BeanUtils;
@@ -28,6 +29,9 @@ public class CommentService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private NtificationEntityMapper ntificationEntityMapper;
+
     @Transactional
     public void insert(CommentEntity record) {
         if(record.getParentId()==null || record.getParentId()==0)
@@ -47,8 +51,13 @@ public class CommentService {
                 throw new CustmizeException(CustomizeErrorcode.COMMENT_NOT_FIND);
             }
             commentEntityMapper.insert(record);
+
 //            增加评论数
            commentEntityMapper.inccommentcount(record.getParentId().intValue());
+           NtificationEntity ntificationEntity =new  NtificationEntity();
+           ntificationEntity.setGmtCreate(System.currentTimeMillis());
+           ntificationEntity.setStatus(NtificationEnums.REPY_COMMENT.getStatus());
+           ntificationEntityMapper.insert(ntificationEntity);
        }
        else {
            //回复问题

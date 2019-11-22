@@ -24,11 +24,13 @@ public class QuestionController {
     public  String question(@PathVariable("creator") Integer id,
                             Model model){
         PublishDto publishdto = publishService.getBYid(id);
+        List<PublishDto>  releatedPublish=publishService.selectRelated(publishdto);
         List<CommentDto> comentDtoList = commentService.ListByQuestionId(id,TYPE);
         //增加阅读数
         publishService.intView(id);
         model.addAttribute("question",publishdto);
         model.addAttribute("comentDtoList",comentDtoList);
+        model.addAttribute("releatedPublish",releatedPublish);
         return "question";
     }
 }

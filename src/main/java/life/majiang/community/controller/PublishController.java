@@ -1,10 +1,12 @@
 package life.majiang.community.controller;
 
+import life.majiang.community.cache.Tagcache;
 import life.majiang.community.dto.PublishDto;
 import life.majiang.community.entity.PublishEntity;
 import life.majiang.community.entity.UserEntity;
 import life.majiang.community.exception.CustomizeErrorcode;
 import life.majiang.community.service.PublishService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -22,7 +24,10 @@ import javax.servlet.http.HttpServletRequest;
 public class PublishController {
 
     @Autowired
-  private PublishService publishService;
+    private PublishService publishService;
+
+    @Autowired
+    private Tagcache tagcache;
 
     @GetMapping("/publish/{id}")
     public String edit(@PathVariable("id") Integer id,
@@ -38,7 +43,8 @@ public class PublishController {
     }
 
     @GetMapping("/publish")
-    public String publish(){
+    public String publish(Model model){
+        model.addAttribute("tags",tagcache.get());
         return "publish";
     }
 
@@ -53,6 +59,7 @@ public class PublishController {
         model.addAttribute("title",title);
         model.addAttribute("description",description);
         model.addAttribute("tag",tag);
+        model.addAttribute("tags",tagcache.get());
 
         if(description == null || description == "")
         {
@@ -67,6 +74,13 @@ public class PublishController {
         if(tag == null || tag == "")
         {
             model.addAttribute("error","标签不能为空");
+            return "publish";
+        }
+
+        if(StringUtils.isBlank(tag))
+        {
+            String tag1=tagcache.filterTag(tag);
+            model.addAttribute("error","输入非法标签"+"  "+tag1);
             return "publish";
         }
 
