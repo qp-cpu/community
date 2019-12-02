@@ -1,7 +1,9 @@
 package life.majiang.community.controller;
 
 import life.majiang.community.dto.PageDto;
+import life.majiang.community.dto.PageNtifcationdto;
 import life.majiang.community.entity.UserEntity;
+import life.majiang.community.service.NtificationEntityService;
 import life.majiang.community.service.PublishService;
 import life.majiang.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class ProfileController {
     @Autowired
    UserService userService;
 
+    @Autowired
+    private NtificationEntityService ntificationEntityService;
+
     @GetMapping("profile/{action}")
     public String profile(@PathVariable("action") String action,
                           Model model,
@@ -32,15 +37,22 @@ public class ProfileController {
             return "redirect:/";
         }
             if (action.equals("question")) {
-                model.addAttribute("section", "qestiion");
+                model.addAttribute("section", "question");
                 model.addAttribute("sectionName", "我的提问");
+                PageDto pageDtoList= publishService.list(userEntity.getId(),page,size);
+                model.addAttribute("publishs",pageDtoList);
             } else if (action.equals("replies")) {
+                Integer unreadCount=ntificationEntityService.unreadCount(Long.valueOf(userEntity.getId()));
+                PageNtifcationdto pageDto=ntificationEntityService.list(Long.valueOf(userEntity.getId()),page,size);
+                model.addAttribute("notification",pageDto);
                 model.addAttribute("section", "replies");
                 model.addAttribute("sectionName", "我的回复");
+                model.addAttribute("unreadCount", unreadCount);
             }
-            PageDto pageDtoList= publishService.list(userEntity.getId(),page,size);
-            model.addAttribute("publishs",pageDtoList);
+
             return "profile";
         }
+
+
     }
 

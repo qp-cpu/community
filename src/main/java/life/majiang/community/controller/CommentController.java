@@ -48,7 +48,7 @@ public class CommentController {
         record.setLikeCount(0L);
         record.setCommentCount(0);
         record.setCommentor(user.getId());
-        commentService.insert(record);
+        commentService.insert(record,user);
         return ResultDto.okOf();
     }
 

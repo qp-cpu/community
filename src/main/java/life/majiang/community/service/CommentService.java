@@ -9,7 +9,8 @@ import life.majiang.community.entity.NtificationEntity;
 import life.majiang.community.entity.PublishEntity;
 import life.majiang.community.entity.UserEntity;
 import life.majiang.community.enums.ContentTypeEnums;
-import life.majiang.community.enums.NtificationEnums;
+import life.majiang.community.enums.NtificationStatusEnums;
+import life.majiang.community.enums.NtificationTypeEnums;
 import life.majiang.community.exception.CustmizeException;
 import life.majiang.community.exception.CustomizeErrorcode;
 import org.springframework.beans.BeanUtils;
@@ -35,7 +36,7 @@ public class CommentService {
     private NtificationEntityMapper ntificationEntityMapper;
 
     @Transactional
-    public void insert(CommentEntity record) {
+    public void insert(CommentEntity record, UserEntity user) {
         if(record.getParentId()==null || record.getParentId()==0)
         {
             throw new CustmizeException(CustomizeErrorcode.TARGET_PARAM_NOT_FIND);
@@ -56,9 +57,17 @@ public class CommentService {
 
 //            增加评论数
            commentEntityMapper.inccommentcount(record.getParentId().intValue());
+//           创建通知
            NtificationEntity ntificationEntity =new  NtificationEntity();
            ntificationEntity.setGmtCreate(System.currentTimeMillis());
-           ntificationEntity.setStatus(NtificationEnums.REPY_COMMENT.getStatus());
+           ntificationEntity.setType(NtificationTypeEnums.REPY_COMMENT.getStatus());
+           ntificationEntity.setOuterid(record.getParentId());
+           ntificationEntity.setNotifier(Long.valueOf(record.getCommentor()));
+           ntificationEntity.setStatus(NtificationStatusEnums.UNREAD.getStatus());
+           Long reciver = Long.valueOf(commentEntity.getCommentor());
+           ntificationEntity.setReciver(reciver);
+           ntificationEntity.setNotifierName(user.getName());
+           ntificationEntity.setOuterTitle(commentEntity.getContent());
            ntificationEntityMapper.insert(ntificationEntity);
        }
        else {
@@ -71,8 +80,22 @@ public class CommentService {
            commentEntityMapper.insert(record);
            publishEntity.setCommentCount(1);
            publishEntityMapper.incCommentCount(publishEntity);
+//           创建回复问题通知
+           NtificationEntity ntificationEntity =new  NtificationEntity();
+           ntificationEntity.setGmtCreate(System.currentTimeMillis());
+           ntificationEntity.setType(NtificationTypeEnums.REPY_QUESTION.getStatus());
+           ntificationEntity.setOuterid(record.getParentId());
+           ntificationEntity.setNotifier(Long.valueOf(record.getCommentor()));
+           ntificationEntity.setStatus(NtificationStatusEnums.UNREAD.getStatus());
+           Long reciver=Long.valueOf(publishEntity.getCreator());
+           ntificationEntity.setReciver(reciver);
+           ntificationEntity.setNotifierName(user.getName());
+           ntificationEntity.setOuterTitle(publishEntity.getTitle());
+           ntificationEntityMapper.insert(ntificationEntity);
        }
     }
+
+
 
     public List<CommentDto> ListByQuestionId(Integer id,Integer type) {
         List<CommentEntity> commentEntities = commentEntityMapper.selectByParentid(id,type);

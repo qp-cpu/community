@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class PageDto {
-    private List<PublishDto> publishDtos;
+public class PageNtifcationdto {
+    private List<NotificationDto> NotificationDtos;
     private boolean showPrevous;
     private boolean showFristpage;
     private boolean showNext;
@@ -16,7 +16,11 @@ public class PageDto {
     private List<Integer> pages=new ArrayList<>();
     private Integer totalpage;
 
+
     public void setPagenation(Integer totalcount, Integer page, Integer size) {
+
+
+
         if(totalcount % size ==0)
         {
             totalpage=totalcount /size;
@@ -62,7 +66,7 @@ public class PageDto {
         //是否显示第一页
         if(pages.contains(1))
         {
-           showFristpage=false;
+            showFristpage=false;
         }else{
             showFristpage=true;
         }
