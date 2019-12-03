@@ -130,7 +130,7 @@ public class NtificationEntity {
      * @mbggenerated
      * @param aLong
      */
-    public Long getReciver(Long aLong) {
+    public Long getReciver() {
         return reciver;
     }
 
@@ -289,4 +289,6 @@ public class NtificationEntity {
     public void setOuterTitle(String outerTitle) {
         this.outerTitle = outerTitle == null ? null : outerTitle.trim();
     }
+
+
 }

@@ -7,7 +7,9 @@ public enum CustomizeErrorcode implements  ICustomizeErrorcodde{
     SYSTEM_ERROR(500,"服务器错误！！！！！ "),
     TYPE_PARAM_ERROE(500,"评论类型错误或者不存在！！！"),
     COMMENT_NOT_FIND(500,"评论不存在了！！！"),
-    COMMENT_IS_EMPTY(301,"评论不能为空！！！");
+    COMMENT_IS_EMPTY(301,"评论不能为空！！！"),
+    READ_NOTIFCATION_FAIL(208,"不能读取别人的信息！！！"),
+    NOTIFCATION_NOT_FOUND(209,"没有找到消息！！！");
    ;
     private String message;
     private Integer code;

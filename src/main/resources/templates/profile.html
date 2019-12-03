@@ -16,7 +16,7 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span th:text="${sectionName}"></span></h2>
             <hr>
-            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" th:if="${section == 'question'}">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:if="${section == 'question'}">
                 <div class="media" th:each="publish : ${publishs.getPublishDtos()}">
                     <div class="media-left">
                         <a href="#">
@@ -38,7 +38,7 @@
                </a>
                     </span>
                     </div>
-                </div>
+            </div>
                 <nav aria-label="Page navigation">
                     <ul class="pagination">
                         <li th:if="${publishs.showFristpage}">
@@ -115,6 +115,7 @@
             </a>
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>

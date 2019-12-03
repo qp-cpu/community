@@ -42,11 +42,11 @@ public class ProfileController {
                 PageDto pageDtoList= publishService.list(userEntity.getId(),page,size);
                 model.addAttribute("publishs",pageDtoList);
             } else if (action.equals("replies")) {
+                model.addAttribute("section", "replies");
+                model.addAttribute("sectionName", "我的回复");
                 Integer unreadCount=ntificationEntityService.unreadCount(Long.valueOf(userEntity.getId()));
                 PageNtifcationdto pageDto=ntificationEntityService.list(Long.valueOf(userEntity.getId()),page,size);
                 model.addAttribute("notification",pageDto);
-                model.addAttribute("section", "replies");
-                model.addAttribute("sectionName", "我的回复");
                 model.addAttribute("unreadCount", unreadCount);
             }
 

@@ -7,7 +7,10 @@ import life.majiang.community.dto.PageDto;
 import life.majiang.community.dto.PageNtifcationdto;
 import life.majiang.community.entity.NtificationEntity;
 import life.majiang.community.entity.NtificationEntityExample;
+import life.majiang.community.entity.UserEntity;
 import life.majiang.community.enums.NtificationTypeEnums;
+import life.majiang.community.exception.CustmizeException;
+import life.majiang.community.exception.CustomizeErrorcode;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,5 +71,21 @@ public class NtificationEntityService {
            .andReciverEqualTo(userid);
         int count = ntidao.countByExample(example);
         return count;
+    }
+
+    public NotificationDto read(Long id, UserEntity userEntity) {
+        NtificationEntity ntificationEntity = ntidao.selectByPrimaryKey(id.intValue());
+        if (ntificationEntity==null)
+        {
+        throw  new  CustmizeException(CustomizeErrorcode.NOTIFCATION_NOT_FOUND);
+        }
+        if (ntificationEntity.getReciver().intValue()!=userEntity.getId())
+        {
+        throw  new  CustmizeException(CustomizeErrorcode.READ_NOTIFCATION_FAIL);
+        }
+        NotificationDto dto = new NotificationDto();
+        BeanUtils.copyProperties(ntificationEntity,dto);
+        dto.setType(NtificationTypeEnums.nameOfType(ntificationEntity.getType()));
+        return  dto;
     }
 }
