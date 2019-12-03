@@ -2,6 +2,7 @@ package life.majiang.community.interceptor;
 
 
 import life.majiang.community.entity.UserEntity;
+import life.majiang.community.service.NtificationEntityService;
 import life.majiang.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,8 @@ public class SessionInterceptor implements HandlerInterceptor {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private NtificationEntityService ntificationEntityService;
 
     //在请求controller以前调用
     @Override
@@ -29,7 +32,9 @@ public class SessionInterceptor implements HandlerInterceptor {
                     String token = cookie.getValue();
                     UserEntity userEntity = userService.selectBytoken(token);
                     if (userEntity != null) {
+                        Integer unreadCount=ntificationEntityService.unreadCount(Long.valueOf(userEntity.getId()));
                         request.getSession().setAttribute("user", userEntity);
+                        request.getSession().setAttribute("unreadCount", unreadCount);
                     }
                     break;
                 }

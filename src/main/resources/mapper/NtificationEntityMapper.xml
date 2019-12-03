@@ -333,6 +333,10 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectAll" resultType="life.majiang.community.entity.NtificationEntity">
-        select * from ntification  where reciver=#{id} order by gmt_create desc limit #{ofsize}, #{size};
+        select * from ntification  where reciver=#{id}  order by gmt_create desc limit #{ofsize}, #{size};
+    </select>
+
+  <select id="count"  resultType="int">
+        select count(1) from ntification;
     </select>
 </mapper>

@@ -19,17 +19,22 @@ public interface PublishEntityMapper {
 
     int updateByPrimaryKey(PublishEntity record);
 
-    public Integer insertpublish(PublishEntity publishEntity);
+    Integer insertpublish(PublishEntity publishEntity);
 
-    public List<PublishEntity> selectAll(@Param("ofszie") Integer ofszie, @Param("size") Integer size);
-    public  Integer count();
-    public  Integer count1(@Param("creator") Integer creator);
+    List<PublishEntity> selectAll(@Param("ofszie") Integer ofszie, @Param("size") Integer size);
+
+    Integer count();
+
+    Integer count1(@Param("creator") Integer creator);
+
     List<PublishEntity> list(@Param("id") Integer id,@Param("ofszie") Integer ofszie, @Param("size") Integer size);
-    public  PublishEntity getBYid(@Param("id") Integer id);
 
-    public  void updateByid(PublishEntity publishEntity);
+    PublishEntity getBYid(@Param("id") Integer id);
+
+    void updateByid(PublishEntity publishEntity);
 
     void updateViewCountBYid(@Param("id") Integer id);
+
     int incCommentCount(PublishEntity record);
 
     List<PublishEntity> selectRelated(PublishEntity publishEntity);

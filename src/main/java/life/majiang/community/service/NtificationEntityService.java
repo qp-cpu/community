@@ -1,13 +1,16 @@
 package life.majiang.community.service;
 
+import life.majiang.community.dao.CommentEntityMapper;
 import life.majiang.community.dao.NtificationEntityMapper;
 import life.majiang.community.dao.UserEntityMapper;
 import life.majiang.community.dto.NotificationDto;
 import life.majiang.community.dto.PageDto;
 import life.majiang.community.dto.PageNtifcationdto;
+import life.majiang.community.entity.CommentEntity;
 import life.majiang.community.entity.NtificationEntity;
 import life.majiang.community.entity.NtificationEntityExample;
 import life.majiang.community.entity.UserEntity;
+import life.majiang.community.enums.NtificationStatusEnums;
 import life.majiang.community.enums.NtificationTypeEnums;
 import life.majiang.community.exception.CustmizeException;
 import life.majiang.community.exception.CustomizeErrorcode;
@@ -27,14 +30,12 @@ public class NtificationEntityService {
     private NtificationEntityMapper ntidao;
     @Autowired
     private UserEntityMapper userdao;
+    @Autowired
+    private CommentEntityMapper commentEntityMapper;
 
     public PageNtifcationdto list(Long id, Integer page, Integer size) {
         PageNtifcationdto pageDto = new PageNtifcationdto();
-
-        NtificationEntityExample example=new NtificationEntityExample();
-        example.createCriteria()
-                .andReciverEqualTo(id);
-        Integer totalcount=ntidao.countByExample(example);
+        Integer totalcount=ntidao.count();
         pageDto.setPagenation(totalcount,page,size);
 
         //对违规值进行处理
@@ -57,7 +58,7 @@ public class NtificationEntityService {
         for (NtificationEntity ntifacation : ntifacations) {
             NotificationDto dto = new NotificationDto();
             BeanUtils.copyProperties(ntifacation,dto);
-            dto.setType(NtificationTypeEnums.nameOfType(ntifacation.getType()));
+            dto.setTypeName(NtificationTypeEnums.nameOfType(ntifacation.getType()));
             notificationDtos.add(dto);
         }
         pageDto.setNotificationDtos(notificationDtos);
@@ -66,11 +67,11 @@ public class NtificationEntityService {
     }
 
     public Integer unreadCount(Long userid) {
-     NtificationEntityExample example=new NtificationEntityExample();
-     example.createCriteria()
-           .andReciverEqualTo(userid);
-        int count = ntidao.countByExample(example);
-        return count;
+        NtificationEntityExample example=new NtificationEntityExample();
+        example.createCriteria()
+                .andStatusEqualTo(NtificationStatusEnums.UNREAD.getStatus())
+                .andReciverEqualTo(userid);
+        return  ntidao.countByExample(example);
     }
 
     public NotificationDto read(Long id, UserEntity userEntity) {
@@ -83,9 +84,18 @@ public class NtificationEntityService {
         {
         throw  new  CustmizeException(CustomizeErrorcode.READ_NOTIFCATION_FAIL);
         }
+        NtificationEntity entity=new NtificationEntity();
+        entity.setId(id.intValue());
+        entity.setStatus(NtificationStatusEnums.READ.getStatus());
+        ntidao.updateByPrimaryKeySelective(entity);
         NotificationDto dto = new NotificationDto();
         BeanUtils.copyProperties(ntificationEntity,dto);
-        dto.setType(NtificationTypeEnums.nameOfType(ntificationEntity.getType()));
+        dto.setTypeName(NtificationTypeEnums.nameOfType(ntificationEntity.getType()));
         return  dto;
+    }
+
+    public CommentEntity selectCommentParentid(Long outerid) {
+        CommentEntity commentEntity = commentEntityMapper.selectByPrimaryKey(outerid);
+        return commentEntity;
     }
 }

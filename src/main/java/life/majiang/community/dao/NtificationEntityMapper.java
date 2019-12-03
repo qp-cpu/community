@@ -98,4 +98,6 @@ public interface NtificationEntityMapper {
 
 
     List<NtificationEntity> selectAll(@Param("id") Long id,@Param("ofsize") Integer ofsize, @Param("size") Integer size);
+
+    Integer count();
 }

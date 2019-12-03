@@ -67,14 +67,15 @@
                     </ul>
                 </nav>
             </div>
-            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" th:if="${section == 'replies'}">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" th:if="${section == 'replies'}">
                 <div class="media" th:each="notification1 : ${notification.getNotificationDtos()}">
                     <div class="media-body">
                         <h5 class="media-heading">
-                            <span th:text="${notification1.getNotifierName()+' '+notification1.getType()}"></span>
+                            <span th:text="${notification1.getNotifierName()+' '+notification1.getTypeName()}"></span>
                             <a th:href="@{'/notification/'+ ${notification1.getId()}}"
                                th:text="${' '+ notification1.getOuterTitle()}">
                             </a>
+                            <span class="label label-danger"  th:if="${notification1.getStatus()==0}">未读</span>
                         </h5>
                     </div>
                 </div>
@@ -111,7 +112,7 @@
         <div class="list-group section">
             <a href="/profile/question"  th:class="${section == 'qestiion'}? 'active list-group-item':'list-group-item'">我的问题</a>
             <a href="/profile/replies" th:class="${section == 'replies'}? 'active list-group-item':'list-group-item'">最新回复
-                <span class="badge" th:text="${unreadCount}">14</span>
+                <span class="badge" th:text="${session.unreadCount}"></span>
             </a>
         </div>
     </div>

@@ -6,22 +6,26 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface UserEntityMapper {
-    int deleteByPrimaryKey(Integer id);
+     int deleteByPrimaryKey(Integer id);
 
-    int insert(UserEntity record);
+     int insert(UserEntity record);
 
-    int insertSelective(UserEntity record);
+     int insertSelective(UserEntity record);
 
-    UserEntity selectByPrimaryKey(Integer id);
+     UserEntity selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(UserEntity record);
+     int updateByPrimaryKeySelective(UserEntity record);
 
-    int updateByPrimaryKey(UserEntity record);
-    public UserEntity getuser(int id);
-    public Integer add(UserEntity userEntity);
-    public UserEntity selectBytoken(@Param("token") String token);
+     int updateByPrimaryKey(UserEntity record);
 
-    public UserEntity findByAccountId(@Param("accountId") String accountId);
+     UserEntity getuser(int id);
 
-    public  void updatetoken(UserEntity dbuserEntity);
+     Integer add(UserEntity userEntity);
+
+     UserEntity selectBytoken(@Param("token") String token);
+
+     UserEntity findByAccountId(@Param("accountId") String accountId);
+
+     void updatetoken(UserEntity dbuserEntity);
+
 }
