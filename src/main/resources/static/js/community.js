@@ -78,14 +78,14 @@ function collapseComments(e) {
                         "class": "media-left"
                     }).append($("<img/>", {
                         "class": "media-object img-rounded",
-                        "src": comment.user.avatarUrl
+                        "src": comment.userEntity.avatarUrl
                     }));
 
                     var mediaBodyElement = $("<div/>", {
                         "class": "media-body"
                     }).append($("<h5/>", {
                         "class": "media-heading",
-                        "html": comment.user.name
+                        "html": comment.userEntity.name
                     })).append($("<div/>", {
                         "html": comment.content
                     })).append($("<div/>", {
