@@ -28,4 +28,5 @@ public interface UserEntityMapper {
 
      void updatetoken(UserEntity dbuserEntity);
 
+     UserEntity selectBYnameAndpwd(UserEntity userEntity);
 }

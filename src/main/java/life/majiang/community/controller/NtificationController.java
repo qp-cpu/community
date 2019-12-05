@@ -41,7 +41,7 @@ public class NtificationController {
 
             }
             else {
-              CommentEntity commentEntity = ntiService.selectCommentParentid(notificationDto.getOuterid());
+                CommentEntity commentEntity = ntiService.selectCommentParentid(notificationDto.getOuterid());
                 return "redirect:/question/"+commentEntity.getParentId();
             }
         }

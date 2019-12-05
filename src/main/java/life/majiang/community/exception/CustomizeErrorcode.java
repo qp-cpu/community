@@ -9,7 +9,9 @@ public enum CustomizeErrorcode implements  ICustomizeErrorcodde{
     COMMENT_NOT_FIND(500,"评论不存在了！！！"),
     COMMENT_IS_EMPTY(301,"评论不能为空！！！"),
     READ_NOTIFCATION_FAIL(208,"不能读取别人的信息！！！"),
-    NOTIFCATION_NOT_FOUND(209,"没有找到消息！！！");
+    NOTIFCATION_NOT_FOUND(209,"没有找到消息！！！"),
+    SIGN_IS_NULL(210,"注册信息为空！！！"),
+    SIGN_FALE(211,"用户名密码错误！！！")
    ;
     private String message;
     private Integer code;

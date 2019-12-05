@@ -3,6 +3,7 @@ package life.majiang.community.service;
 
 import life.majiang.community.dao.UserEntityMapper;
 import life.majiang.community.entity.UserEntity;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,5 +46,13 @@ public class UserService {
 
     public UserEntity selectBYid(Integer id) {
       return  userDao.selectByPrimaryKey(id);
+    }
+
+    public void insert(UserEntity userEntit) {
+        userDao.insertSelective(userEntit);
+    }
+
+    public UserEntity selectuser(UserEntity userEntity) {
+       return userDao.selectBYnameAndpwd(userEntity);
     }
 }

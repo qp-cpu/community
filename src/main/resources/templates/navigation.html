@@ -33,7 +33,7 @@
                                <li><a href="/logout">退出登录</a></li>
                            </ul>
                        <li th:if="${session.user == null}">
-                           <a href="https://github.com/login/oauth/authorize?client_id=079686b431e42084be6c&redirect_uri=http://localhost:8887/callback&scope=user&state=1">登录</a></li>
+                           <a href="/login">登录</a></li>
                        </li>
                        <li th:if="${session.user!=null}">
                            <a href="/publish">发布</a>
@@ -43,5 +43,6 @@
            </div>
        </nav>
    </div>
+   <div th:insert="~{footer :: foot}"></div>
 </body>
 </html>

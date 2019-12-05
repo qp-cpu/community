@@ -23,10 +23,10 @@ public class Webconfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
-//        registry.addResourceHandler("/images/**").addResourceLocations("classpath:/static/images/");
-//        registry.addResourceHandler("/lib/**").addResourceLocations("classpath:/static/lib/");
-//        registry.addResourceHandler("/fonts/**").addResourceLocations("classpath:/static/fonts/");
-//        registry.addResourceHandler("/plugins/**").addResourceLocations("classpath:/static/plugins/");
+        registry.addResourceHandler("/images/**").addResourceLocations("classpath:/static/images/");
+        registry.addResourceHandler("/lib/**").addResourceLocations("classpath:/static/lib/");
+        registry.addResourceHandler("/fonts/**").addResourceLocations("classpath:/static/fonts/");
+        registry.addResourceHandler("/plugins/**").addResourceLocations("classpath:/static/plugins/");
         WebMvcConfigurer.super.addResourceHandlers(registry);
     }
 }
