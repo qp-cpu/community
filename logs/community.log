@@ -1,0 +1,6 @@
+2019-12-06 10:40:22.646  INFO 13032 --- [restartedMain] l.m.community.CommunityApplication       : Started CommunityApplication in 3.156 seconds (JVM running for 4.76)
+2019-12-06 10:40:26.830  INFO 13032 --- [http-nio-8887-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-12-06 10:40:26.831  INFO 13032 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-12-06 10:40:26.838  INFO 13032 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 7 ms
+2019-12-06 10:40:26.873  INFO 13032 --- [http-nio-8887-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-12-06 10:40:26.981  INFO 13032 --- [http-nio-8887-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.

@@ -38,4 +38,8 @@ public interface PublishEntityMapper {
     int incCommentCount(PublishEntity record);
 
     List<PublishEntity> selectRelated(PublishEntity publishEntity);
+
+    Integer serachcount(@Param("serach") String serach);
+
+    List<PublishEntity> serachAll(@Param("serach") String serach,@Param("ofszie") Integer ofszie, @Param("size") Integer size);
 }
