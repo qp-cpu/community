@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 @Controller
-@Slf4j
 public class AuthorizeController {
 
     @Autowired
@@ -67,7 +66,6 @@ public class AuthorizeController {
            userService.createOrUpdate(userEntity);
            System.out.println(token);
            response.addCookie(new Cookie("token",token));
-           log.error("callback get github error,{}",githubUser);
            return "redirect:/";
        }
        else
